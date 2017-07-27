@@ -1,11 +1,7 @@
-package com.java_academy.ligic.model;
+package com.java_academy.logic.model;
 
 
 import com.java_academy.logic.Players;
-import com.java_academy.logic.model.Direction;
-import com.java_academy.logic.model.PlayerBoard;
-import com.java_academy.logic.model.Ship;
-import com.java_academy.logic.model.ShipsType;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

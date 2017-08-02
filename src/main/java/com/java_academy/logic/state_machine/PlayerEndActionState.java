@@ -52,6 +52,8 @@ public class PlayerEndActionState implements GameState {
     }
 
     public Boolean somethingWasHit(Map<Integer, Boolean> map) {
+    	//TODO use stream like below
+    	//return map.entrySet().stream().anyMatch(Map.Entry::getValue);
     	for(Entry<Integer, Boolean> markIndex: map.entrySet()) {
 			if(markIndex.getValue().equals(true)) {
 				return true;

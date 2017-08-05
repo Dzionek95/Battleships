@@ -34,6 +34,8 @@ import java.util.function.Supplier;
 
 public class Controller implements Initializable {
 
+
+
     @FXML
     GridPane gridPaneShips;
     @FXML
@@ -54,9 +56,6 @@ public class Controller implements Initializable {
     CheckBox nukeCheckBox;
     @FXML
     ChoiceBox choiceBoxLangugage;
-
-
-    
 
     private Connector connector;
 
@@ -240,6 +239,7 @@ public class Controller implements Initializable {
      }
 
     private void disableVisibilityOfComponents(){
+
         ipLabel.setVisible(false);
         connectButton.setVisible(false);
         ipTextField.setVisible(false);
@@ -254,5 +254,9 @@ public class Controller implements Initializable {
         stage.setScene(scene);
         stage.setTitle("Thanks for playing");
         stage.show();
+    }
+
+    public Connector getConnector() {
+        return connector;
     }
 }

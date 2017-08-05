@@ -19,24 +19,28 @@ import static com.java_academy.network.socket_provider.core.AbstractSocketProvid
 /**
  * @author Siarhei Shauchenka
  * @since 01.08.17
- *
+ * <p>
  * Temporary Server Application for Connection checking
  */
 public class ServerApp {
 
     private final static Logger LOGGER = BSLog.getLogger(ServerApp.class);
-
+    public static Connector connector;
     public static void main(String[] args) {
+        ServerApp serverApp = new ServerApp();
+        serverApp.start();
+    }
+
+    private void start() {
         try {
             ServerSocket serverSocket = new ServerSocket();
             SocketProvider socketProvider = new ServerSocketProvider(serverSocket);
             InetSocketAddress inetSocketAddress = new InetSocketAddress("localhost", 4000);
-            Connector connector = new Connector(socketProvider);
-
+            connector = new Connector(socketProvider);
+            BSLog.info(LOGGER, "Server is up and running");
             Game game = new Game(connector::sendMessage);
             connector.addMessageReceiverListenerToSocketProvider(game);
-            BSLog.info(LOGGER, "Server is up and running");
-            if (connector.connect(inetSocketAddress)){
+            if (connector.connect(inetSocketAddress)) {
                 game.startGame();
             }
         } catch (IOException e) {

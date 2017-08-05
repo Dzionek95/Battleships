@@ -5,12 +5,10 @@ import com.java_academy.gui.Controller;
 import com.java_academy.logic.model.MessageObject;
 import com.java_academy.network.Connector;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 public class Main extends Application {
 

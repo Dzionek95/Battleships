@@ -1,58 +1,47 @@
 package com.java_academy.logic.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 
 public class Ship {
 
-    private int startCell;
-    private Direction direction;
-    private ShipsType type;
+	private int mastAmount;
+	private Map<Integer, Cell> indexes;
+	
+	public Ship(int mastAmount) {
+		this.mastAmount = mastAmount;
+		indexes = new HashMap<>();
+	}
 
-    public Ship(ShipsType type) {
-        this.type = type;
+	public Integer getMastAmount() {
+		return mastAmount;
+	}
+	
+	public boolean isFourMast() {
+        return mastAmount == 4;
     }
 
-    public Ship setShipPosition(int startPoint, Direction direction) {
-        this.startCell = startPoint;
-        this.direction = direction;
-        return this;
-    }
+	public Map<Integer, Cell> getIndexes() {
+		return indexes;
+	}
 
-    public List<Integer> getShipPosition() {
-        final List<Integer> positions = new ArrayList<>();
-        int currentPos = startCell;
-        for (int i = 0; i < getSize(); i++) {
-            if (i != 0) {
-                currentPos = nextPoint(currentPos, direction);
-            }
-            positions.add(currentPos);
-        }
-        return positions;
-    }
+	public void setIndex(Integer index, Cell cellState) {
+		indexes.put(index, cellState);
+	}
+	
+	public boolean containsIndex(Integer index) {
+		return indexes.containsKey(index);
+	}
 
-    private int nextPoint(int point, Direction direction) {
-        switch (direction) {
-            case VERTICAL:
-                point += 10;
-                break;
-            case HORIZONTAL:
-                point += 1;
-                break;
-        }
-        return point;
-    }
+	public boolean isAlive() {
+		for(Entry<Integer, Cell> cell: getIndexes().entrySet()) {
+			if(cell.getValue().equals(Cell.SHIP_ALIVE)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-    public int getSize() {
-        return type.getSize();
-    }
-
-    public Direction getDirection() {
-        return direction;
-    }
-
-    public int getStartCell() {
-        return startCell;
-    }
 }

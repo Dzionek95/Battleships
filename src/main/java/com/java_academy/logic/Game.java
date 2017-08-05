@@ -1,28 +1,62 @@
 package com.java_academy.logic;
 
+import com.java_academy.ServerApp;
 import com.java_academy.logic.model.MessageObject;
 import com.java_academy.logic.state_machine.NewGameState;
 import com.java_academy.logic.state_machine.core.GameState;
+import com.java_academy.logic.state_machine.core.OnMessageReceiverListener;
+import com.java_academy.logic.tools.BSLog;
+import com.java_academy.network.Connector;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class Game {
+/**
+ * @author Siarhei Shauchenka
+ *
+ * Provides game logic based on states machine
+ */
 
-    private Supplier<String> inputSupplier;
+public class Game implements OnMessageReceiverListener{
+
     private Consumer<MessageObject> outputConsumer;
+    private GameState currentState;
 
-    public Game(Supplier<String> inputSupplier, Consumer<MessageObject> outputConsumer) {
-        this.inputSupplier = inputSupplier;
+    /**
+     * Creates entity of a Game class
+     * @param outputConsumer provides {@link MessageObject} to {@link com.java_academy.network.Connector} for sending
+     */
+    public Game(Consumer<MessageObject> outputConsumer) {
         this.outputConsumer = outputConsumer;
     }
 
-    public void startGame() {
-        GameState currentState= new NewGameState();
-        while(!currentState.isEndingState()){
-            currentState.display(outputConsumer);
-            currentState = currentState.changeState(inputSupplier);
-        }
+    /**
+     * start a game with NewGameState
+     */
+    public void startGame(){
+        currentState= new NewGameState();
     }
 
+
+    /**
+     * Interface implementation which provides callbacks messages from Client
+     * @param messageSupplier provides message from {@link com.java_academy.network.Connector}
+     */
+    @Override
+    public void onMessageReceived(Supplier<String> messageSupplier) {
+
+        if (!currentState.isEndingState()){
+            currentState.display(outputConsumer);
+            String s = messageSupplier.get();
+            BSLog.info(BSLog.getLogger(getClass()), s);
+            if(s.equals("CLOSE")){
+                ServerApp.connector.closeConnection();
+            }
+            currentState = currentState.changeState(s);
+        } else {
+            if(messageSupplier.get().equals("")) {
+            }
+
+        }
+    }
 }

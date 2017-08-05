@@ -1,20 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700" prefWidth="1050" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java_academy.gui.Controller">
+<?import javafx.collections.FXCollections?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.java_academy.gui.Controller">
     <children>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+        <AnchorPane prefHeight="80.0" prefWidth="850.0">
             <children>
-                <TextField layoutX="34.0" layoutY="50.0" />
-                <TextField layoutX="207.0" layoutY="50.0" />
-                <Label layoutX="34.0" layoutY="27.0" text="IP address" />
-                <Label layoutX="207.0" layoutY="27.0" text="Port" />
-                <Button layoutX="376.0" layoutY="50.0" mnemonicParsing="false" text="Connect" />
-            </children></AnchorPane>
-        <SplitPane dividerPositions="0.5" prefHeight="587.0" prefWidth="1044.0">
+                <TextField fx:id="ipTextField" layoutX="105.0" layoutY="7.0" prefHeight="31.0" prefWidth="174.0">
+               <padding>
+                  <Insets bottom="5.0" />
+               </padding></TextField>
+                <Label fx:id="ipLabel" layoutX="14.0" layoutY="12.0" text="IP address" />
+                <Button fx:id="connectButton" layoutX="329.0" layoutY="7.0" mnemonicParsing="false" onAction="#connectToServer" text="Connect" AnchorPane.topAnchor="7.0" />
+                <ChoiceBox fx:id="choiceBoxLangugage" layoutX="748.0" layoutY="7.0" onAction="#setLocale" value="English">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="English" />
+                            <String fx:value="Polish" />
+                        </FXCollections>
+                    </items>
+                </ChoiceBox>
+                <Label fx:id="label" layoutX="117.0" layoutY="12.0" text="Message for the Player" />
+            </children>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+        </AnchorPane>
+        <SplitPane dividerPositions="0.5" prefHeight="550.0" prefWidth="850.0">
             <items>
-                <GridPane gridLinesVisible="true">
+                <GridPane fx:id="gridPaneShots" gridLinesVisible="true">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -142,7 +161,7 @@
                         <Pane fx:id="99" onMouseClicked="#onShootHandled" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="9" GridPane.rowIndex="9" />
                     </children>
                 </GridPane>
-                <GridPane gridLinesVisible="true">
+                <GridPane fx:id="gridPaneShips" gridLinesVisible="true">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -274,9 +293,9 @@
         </SplitPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
-                <Button layoutX="14.0" layoutY="33.0" mnemonicParsing="false" onAction="#showNuke" text="NUKE" />
-                <Button alignment="CENTER_RIGHT" layoutX="938.0" layoutY="33.0" mnemonicParsing="false" text="RANDOMIZER" />
-                <Label layoutX="462.0" layoutY="37.0" text="Message for the Player" />
+                <Button fx:id="randomizer" alignment="CENTER_RIGHT" layoutX="724.0" layoutY="13.0" mnemonicParsing="false" text="RANDOMIZER" />
+            <CheckBox fx:id="nukeCheckBox" layoutX="14.0" layoutY="18.0" mnemonicParsing="false" text="Drop nuke" />
+            <Label fx:id="shipDestroyed" layoutX="326.0" layoutY="18.0" text="Ship has been destroyed label" />
             </children>
         </AnchorPane>
     </children>

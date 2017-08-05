@@ -1,0 +1,4 @@
+#!/bin/bash
+FILE_TO_LOUNCH=$1
+mvn clean install
+mvn exec:java -Dexec.mainClass="com.java_academy.$FILE_TO_LOUNCH"

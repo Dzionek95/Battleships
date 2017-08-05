@@ -2,11 +2,12 @@ package com.java_academy.logic.model;
 
 
 public enum Cell {
-    FREE("O"),
-    SHIP("S"),
-    UNAVAILABLE("U"),
-    SHOT("X"),
-    MISSED("-");
+	
+	EMPTY(" * "),
+	SHIP_ALIVE(" O "),
+    BUSY(" - "),
+    SHIP_HITTED(" X "),
+    MISS(" @ ");
 
     private String mark;
 
@@ -14,7 +15,7 @@ public enum Cell {
         this.mark = mark;
     }
 
-    public String getMark() {
+    public String toString() {
         return mark;
     }
 }
